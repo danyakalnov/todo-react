@@ -19,6 +19,8 @@
     "alwaysStrict": true,
     "allowUnreachableCode": false,
     "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,
     "importHelpers": true
   },
