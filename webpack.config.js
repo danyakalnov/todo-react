@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -14,6 +15,11 @@ module.exports = {
       template: './public/index.html',
       filename: 'index.html',
       inject: 'body',
+    }),
+    new CompressionWebpackPlugin({
+      test: /\.(((ts|js)x?)|html)$/,
+      exclude: /node_modules/,
+      algorithm: 'gzip',
     }),
   ],
   module: {
