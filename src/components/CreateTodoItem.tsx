@@ -9,7 +9,7 @@ interface CreateTodoListProps {
 
 const useStyles = makeStyles({
   createTodo: {
-    width: '40%',
+    width: '30%',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

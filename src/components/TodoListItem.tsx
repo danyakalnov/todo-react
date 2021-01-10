@@ -14,10 +14,10 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '40%',
+    width: '30%',
     minHeight: '32px',
     height: 'auto',
-    padding: '16px',
+    padding: '12px',
     '&:not(:first-of-type)': {
       marginTop: '12px',
     },
