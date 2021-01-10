@@ -1,8 +1,10 @@
 import { Task, TaskCreatePayload, TaskEditPayload } from '../types/todos';
 
-const TODOS_URL = 'http://localhost/3000/api/tasks';
+const TODOS_URL = 'http://localhost:3000/api/tasks';
 
-export const getTasks: () => Promise<Array<Task>> = async (): Promise<Array<Task>> => {
+export const getTasks: () => Promise<Array<Task> | undefined> = async (): Promise<
+  Array<Task> | undefined
+> => {
   try {
     const response = await fetch(TODOS_URL);
     if (response.ok) return await response.json();
@@ -14,7 +16,9 @@ export const getTasks: () => Promise<Array<Task>> = async (): Promise<Array<Task
   }
 };
 
-export const getTaskById: (id: string) => Promise<Task> = async (id: string) => {
+export const getTaskById: (id: string) => Promise<Task | undefined> = async (
+  id: string,
+): Promise<Task | undefined> => {
   try {
     const response = await fetch(`${TODOS_URL}/${id}`);
     if (response.ok) return await response.json();
@@ -26,11 +30,11 @@ export const getTaskById: (id: string) => Promise<Task> = async (id: string) => 
   }
 };
 
-export const createTask: (taskPayload: TaskCreatePayload) => Promise<string> = async (
+export const createTask: (taskPayload: TaskCreatePayload) => Promise<string | undefined> = async (
   taskPayload: TaskCreatePayload,
-): Promise<string> => {
+): Promise<string | undefined> => {
   try {
-    const response = await fetch(TODOS_URL, {
+    const response = await fetch(`${TODOS_URL}/create`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
