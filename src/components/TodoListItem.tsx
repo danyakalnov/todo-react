@@ -10,6 +10,7 @@ interface TodoListItemProps {
   isDone: boolean;
   id: string;
   deleteHandler: (taskId: string) => void;
+  toggleHandler: (taskId: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -49,18 +50,15 @@ const useStyles = makeStyles({
 });
 
 export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
-  ({ taskText, isDone, id, deleteHandler }, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ taskText, isDone, id, deleteHandler, toggleHandler }, ref: ForwardedRef<HTMLDivElement>) => {
     const styles = useStyles();
-
-    const checkTodoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-      /* TODO: toggle todo status in the parent component */
-    };
 
     return (
       <div className={styles.todo} ref={ref}>
         <Typography variant="h6">{taskText}</Typography>
         <div className={styles.iconsBlock}>
           <Checkbox
+            onClick={() => toggleHandler(id)}
             checked={isDone}
             checkedIcon={
               <CheckedCircle

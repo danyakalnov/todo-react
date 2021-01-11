@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { getTasks, deleteTask } from '../api/todos';
+import { getTasks, deleteTask, toggleTaskStatus } from '../api/todos';
 import { Task } from '../types/todos';
 import { TodoListItem } from './TodoListItem';
-import { CreateTodoList } from './CreateTodoItem';
+import { CreateTodoItem } from './CreateTodoItem';
 import FlipMove from 'react-flip-move';
 
 const useStyles = makeStyles({
@@ -35,20 +35,24 @@ export const TodoList: React.FC = () => {
     if (deletionResult) await fetchTasks();
   };
 
+  const toggleTodoHandler = async (taskId: string) => {
+    const response = await toggleTaskStatus(taskId);
+    if (response !== undefined) await fetchTasks();
+  };
+
   return (
     <div className={styles.todoList}>
-      <CreateTodoList setTasks={setTasks} />
-      <FlipMove>
-        {tasks.map((task: Task) => (
-          <TodoListItem
-            taskText={task.taskText}
-            isDone={task.isDone}
-            id={task.id}
-            deleteHandler={deleteTodoHandler}
-            key={task.id}
-          />
-        ))}
-      </FlipMove>
+      <CreateTodoItem setTasks={setTasks} />
+      {tasks.map((task: Task) => (
+        <TodoListItem
+          taskText={task.taskText}
+          isDone={task.isDone}
+          id={task.id}
+          deleteHandler={deleteTodoHandler}
+          toggleHandler={toggleTodoHandler}
+          key={task.id}
+        />
+      ))}
     </div>
   );
 };
