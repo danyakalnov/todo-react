@@ -73,6 +73,20 @@ export const editTask = async (taskPayload: TaskEditPayload) => {
   }
 };
 
+export const toggleTaskStatus = async (taskId: string): Promise<Object | undefined> => {
+  try {
+    const response = await fetch(`${TODOS_URL}/toggle/${taskId}`, {
+      method: 'PATCH',
+    });
+    if (response.ok) return await response.json();
+    else await Promise.reject(response);
+  } catch (error) {
+    const httpStatusCode = error.status;
+    if (httpStatusCode === 404 || httpStatusCode === 500) console.log(error.message);
+    else console.log(`Error occurred while toggling status of task with id: ${taskId}`);
+  }
+};
+
 export const deleteTask = async (taskId: string): Promise<boolean> => {
   try {
     const response = await fetch(`${TODOS_URL}/${taskId}`, {
