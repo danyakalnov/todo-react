@@ -73,16 +73,16 @@ export const editTask = async (taskPayload: TaskEditPayload) => {
   }
 };
 
-export const deleteTask = async (taskId: string) => {
+export const deleteTask = async (taskId: string): Promise<boolean> => {
   try {
     const response = await fetch(`${TODOS_URL}/${taskId}`, {
       method: 'DELETE',
     });
-    if (response.ok) return response;
-    else await Promise.reject(response);
+    return response.ok;
   } catch (error) {
     const httpStatusCode = error.status;
     if (httpStatusCode === 404 || httpStatusCode === 500) console.log(error.message);
     else console.log(`Error occurred while deleting task with id: ${taskId}`);
+    return false;
   }
 };
