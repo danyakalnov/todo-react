@@ -8,12 +8,20 @@ import FlipMove from 'react-flip-move';
 
 const useStyles = makeStyles({
   todoList: {
+    width: '100%',
+    height: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'start',
+  },
+  animationContainer: {
+    width: '100%',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'start',
     alignItems: 'center',
-    width: '100%',
-    height: 'auto',
   },
 });
 
@@ -43,16 +51,18 @@ export const TodoList: React.FC = () => {
   return (
     <div className={styles.todoList}>
       <CreateTodoItem setTasks={setTasks} />
-      {tasks.map((task: Task) => (
-        <TodoListItem
-          taskText={task.taskText}
-          isDone={task.isDone}
-          id={task.id}
-          deleteHandler={deleteTodoHandler}
-          toggleHandler={toggleTodoHandler}
-          key={task.id}
-        />
-      ))}
+      <FlipMove className={styles.animationContainer}>
+        {tasks.map((task: Task) => (
+          <TodoListItem
+            taskText={task.taskText}
+            isDone={task.isDone}
+            id={task.id}
+            deleteHandler={deleteTodoHandler}
+            toggleHandler={toggleTodoHandler}
+            key={task.id}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };
