@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { getTasks, deleteTask, toggleTaskStatus } from '../api/todos';
-import { Task } from '../types/todos';
+import { getTasks, deleteTask, toggleTaskStatus, editTask } from '../api/todos';
+import { Task, TaskEditPayload } from '../types/todos';
 import { TodoListItem } from './TodoListItem';
 import { CreateTodoItem } from './CreateTodoItem';
 import FlipMove from 'react-flip-move';
@@ -48,6 +48,11 @@ export const TodoList: React.FC = () => {
     if (response !== undefined) await fetchTasks();
   };
 
+  const editTodoHandler = async (payload: TaskEditPayload) => {
+    const editResult = await editTask(payload);
+    if (editResult) await fetchTasks();
+  };
+
   return (
     <div className={styles.todoList}>
       <CreateTodoItem setTasks={setTasks} />
@@ -59,6 +64,7 @@ export const TodoList: React.FC = () => {
             id={task.id}
             deleteHandler={deleteTodoHandler}
             toggleHandler={toggleTodoHandler}
+            editHandler={editTodoHandler}
             key={task.id}
           />
         ))}

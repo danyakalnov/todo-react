@@ -1,9 +1,13 @@
-import React, { ForwardedRef, forwardRef } from 'react';
-import { makeStyles, Typography, Checkbox } from '@material-ui/core';
+import React, { ForwardedRef, forwardRef, useState } from 'react';
+import { makeStyles, Typography, Checkbox, TextField, InputAdornment } from '@material-ui/core';
 import CheckedCircle from '@material-ui/icons/CheckCircle';
 import UncheckedCircle from '@material-ui/icons/RadioButtonUnchecked';
 import DeleteForever from '@material-ui/icons/DeleteForever';
+import Clear from '@material-ui/icons/Clear';
+import Edit from '@material-ui/icons/Edit';
+import Done from '@material-ui/icons/Done';
 import clsx from 'clsx';
+import { TaskEditPayload } from '../types/todos';
 
 interface TodoListItemProps {
   taskText: string;
@@ -11,6 +15,7 @@ interface TodoListItemProps {
   id: string;
   deleteHandler: (taskId: string) => void;
   toggleHandler: (taskId: string) => void;
+  editHandler: (payload: TaskEditPayload) => void;
 }
 
 const useStyles = makeStyles({
@@ -43,6 +48,21 @@ const useStyles = makeStyles({
     marginLeft: '4px',
     cursor: 'pointer',
   },
+  editIcon: {
+    color: 'rgba(21, 21, 21, 0.38)',
+    cursor: 'pointer',
+    marginLeft: '16px',
+  },
+  newTaskTextField: {
+    width: '100%',
+  },
+  newTaskTextFieldAdornmentIcon: {
+    '&:not(:first-of-type)': {
+      marginLeft: '16px',
+    },
+    color: 'rgba(21, 21, 21, 0.38)',
+    cursor: 'pointer',
+  },
   iconsBlock: {
     display: 'flex',
     justifyContent: 'end',
@@ -51,12 +71,47 @@ const useStyles = makeStyles({
 });
 
 export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
-  ({ taskText, isDone, id, deleteHandler, toggleHandler }, ref: ForwardedRef<HTMLDivElement>) => {
+  (
+    { taskText, isDone, id, deleteHandler, toggleHandler, editHandler },
+    ref: ForwardedRef<HTMLDivElement>,
+  ) => {
     const styles = useStyles();
+
+    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [newTaskText, setNewTaskText] = useState<string>(taskText);
+
+    const newTaskTextHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setNewTaskText(event.target.value);
+    };
+
+    const EditTaskTextField = (
+      <TextField
+        value={newTaskText}
+        type="text"
+        onChange={newTaskTextHandler}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <Clear
+                className={styles.newTaskTextFieldAdornmentIcon}
+                onClick={() => setIsEditing(false)}
+              />
+              <Done
+                className={styles.newTaskTextFieldAdornmentIcon}
+                onClick={async () => {
+                  await editHandler({ id, taskText: newTaskText });
+                  setIsEditing(false);
+                }}
+              />
+            </InputAdornment>
+          ),
+        }}
+      />
+    );
 
     return (
       <div className={styles.todo} ref={ref}>
-        <Typography variant="h6">{taskText}</Typography>
+        {isEditing ? EditTaskTextField : <Typography variant="h6">{taskText}</Typography>}
         <div className={styles.iconsBlock}>
           <Checkbox
             onClick={() => toggleHandler(id)}
@@ -69,6 +124,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
             icon={<UncheckedCircle className={styles.todoToggleIcon} />}
           />
           <DeleteForever className={styles.deleteIcon} onClick={() => deleteHandler(id)} />
+          <Edit className={styles.editIcon} onClick={() => setIsEditing(true)} />
         </div>
       </div>
     );
