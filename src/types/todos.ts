@@ -11,7 +11,7 @@ export type TaskCreatePayload = {
 };
 
 export type TaskEditPayload = {
-  id?: string;
+  id: string;
   taskText?: string;
   isDone?: boolean;
 };
