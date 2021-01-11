@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ForwardedRef, forwardRef } from 'react';
 import { makeStyles, Typography, Checkbox, withStyles } from '@material-ui/core';
 import CheckedCircle from '@material-ui/icons/CheckCircle';
 import UncheckedCircle from '@material-ui/icons/RadioButtonUnchecked';
@@ -34,23 +34,29 @@ const useStyles = makeStyles({
   },
 });
 
-export const TodoListItem: React.FC<TodoListItemProps> = ({ taskText, isDone }) => {
-  const styles = useStyles();
+export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
+  ({ taskText, isDone }, ref: ForwardedRef<HTMLDivElement>) => {
+    const styles = useStyles();
 
-  const checkTodoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    /* TODO: toggle todo status in the parent component */
-  };
+    const checkTodoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      /* TODO: toggle todo status in the parent component */
+    };
 
-  return (
-    <div className={styles.todo}>
-      <Typography variant="h6">{taskText}</Typography>
-      <Checkbox
-        checked={isDone}
-        checkedIcon={
-          <CheckedCircle className={clsx(styles.todoToggleIconChecked, styles.todoToggleIcon)} />
-        }
-        icon={<UncheckedCircle className={styles.todoToggleIcon} />}
-      />
-    </div>
-  );
-};
+    const deleteTodoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      /* TODO: delete todo */
+    };
+
+    return (
+      <div className={styles.todo} ref={ref}>
+        <Typography variant="h6">{taskText}</Typography>
+        <Checkbox
+          checked={isDone}
+          checkedIcon={
+            <CheckedCircle className={clsx(styles.todoToggleIconChecked, styles.todoToggleIcon)} />
+          }
+          icon={<UncheckedCircle className={styles.todoToggleIcon} />}
+        />
+      </div>
+    );
+  },
+);
