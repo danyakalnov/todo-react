@@ -41,6 +41,7 @@ const useStyles = makeStyles({
     height: '29px',
     color: 'rgba(237, 70, 47, 0.9)',
     marginLeft: '4px',
+    cursor: 'pointer',
   },
   iconsBlock: {
     display: 'flex',
