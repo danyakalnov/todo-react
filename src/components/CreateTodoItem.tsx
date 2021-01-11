@@ -26,7 +26,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const CreateTodoList: React.FC<CreateTodoListProps> = ({ setTasks }) => {
+export const CreateTodoItem: React.FC<CreateTodoListProps> = ({ setTasks }) => {
   const styles = useStyles();
 
   const [newTaskText, setNewTaskText] = useState<string>('');
