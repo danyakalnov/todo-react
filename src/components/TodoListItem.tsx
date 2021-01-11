@@ -1,12 +1,15 @@
 import React, { ForwardedRef, forwardRef } from 'react';
-import { makeStyles, Typography, Checkbox, withStyles } from '@material-ui/core';
+import { makeStyles, Typography, Checkbox } from '@material-ui/core';
 import CheckedCircle from '@material-ui/icons/CheckCircle';
 import UncheckedCircle from '@material-ui/icons/RadioButtonUnchecked';
+import DeleteForever from '@material-ui/icons/DeleteForever';
 import clsx from 'clsx';
 
 interface TodoListItemProps {
   taskText: string;
   isDone: boolean;
+  id: string;
+  deleteHandler: (taskId: string) => void;
 }
 
 const useStyles = makeStyles({
@@ -32,18 +35,20 @@ const useStyles = makeStyles({
   todoToggleIconChecked: {
     color: 'rgba(92, 217, 50, 0.8)',
   },
+  deleteIcon: {
+    width: '27px',
+    height: '27px',
+    color: 'rgba(237, 70, 47, 0.9)',
+    marginLeft: '16px',
+  },
 });
 
 export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
-  ({ taskText, isDone }, ref: ForwardedRef<HTMLDivElement>) => {
+  ({ taskText, isDone, id, deleteHandler }, ref: ForwardedRef<HTMLDivElement>) => {
     const styles = useStyles();
 
     const checkTodoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
       /* TODO: toggle todo status in the parent component */
-    };
-
-    const deleteTodoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-      /* TODO: delete todo */
     };
 
     return (
@@ -56,6 +61,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
           }
           icon={<UncheckedCircle className={styles.todoToggleIcon} />}
         />
+        <DeleteForever className={styles.deleteIcon} onClick={() => deleteHandler(id)} />
       </div>
     );
   },
