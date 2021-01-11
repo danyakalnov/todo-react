@@ -4,6 +4,7 @@ import { getTasks } from '../api/todos';
 import { Task } from '../types/todos';
 import { TodoListItem } from './TodoListItem';
 import { CreateTodoList } from './CreateTodoItem';
+import FlipMove from 'react-flip-move';
 
 const useStyles = makeStyles({
   todoList: {
@@ -31,9 +32,11 @@ export const TodoList: React.FC = () => {
   return (
     <div className={styles.todoList}>
       <CreateTodoList setTasks={setTasks} />
-      {tasks.map((task: Task) => (
-        <TodoListItem taskText={task.taskText} isDone={task.isDone} key={task.id} />
-      ))}
+      <FlipMove>
+        {tasks.map((task: Task) => (
+          <TodoListItem taskText={task.taskText} isDone={task.isDone} key={task.id} />
+        ))}
+      </FlipMove>
     </div>
   );
 };
