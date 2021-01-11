@@ -36,10 +36,15 @@ const useStyles = makeStyles({
     color: 'rgba(92, 217, 50, 0.8)',
   },
   deleteIcon: {
-    width: '27px',
-    height: '27px',
+    width: '29px',
+    height: '29px',
     color: 'rgba(237, 70, 47, 0.9)',
-    marginLeft: '16px',
+    marginLeft: '4px',
+  },
+  iconsBlock: {
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
   },
 });
 
@@ -54,14 +59,18 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
     return (
       <div className={styles.todo} ref={ref}>
         <Typography variant="h6">{taskText}</Typography>
-        <Checkbox
-          checked={isDone}
-          checkedIcon={
-            <CheckedCircle className={clsx(styles.todoToggleIconChecked, styles.todoToggleIcon)} />
-          }
-          icon={<UncheckedCircle className={styles.todoToggleIcon} />}
-        />
-        <DeleteForever className={styles.deleteIcon} onClick={() => deleteHandler(id)} />
+        <div className={styles.iconsBlock}>
+          <Checkbox
+            checked={isDone}
+            checkedIcon={
+              <CheckedCircle
+                className={clsx(styles.todoToggleIconChecked, styles.todoToggleIcon)}
+              />
+            }
+            icon={<UncheckedCircle className={styles.todoToggleIcon} />}
+          />
+          <DeleteForever className={styles.deleteIcon} onClick={() => deleteHandler(id)} />
+        </div>
       </div>
     );
   },
