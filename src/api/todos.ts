@@ -52,7 +52,7 @@ export const createTask: (taskPayload: TaskCreatePayload) => Promise<string | un
   }
 };
 
-export const editTask = async (taskPayload: TaskEditPayload) => {
+export const editTask = async (taskPayload: TaskEditPayload): Promise<boolean> => {
   try {
     const response = await fetch(`${TODOS_URL}/${taskPayload.id}`, {
       method: 'PATCH',
@@ -64,12 +64,12 @@ export const editTask = async (taskPayload: TaskEditPayload) => {
         isDone: taskPayload.isDone,
       }),
     });
-    if (response.ok) return response;
-    else await Promise.reject(response);
+    return response.ok;
   } catch (error) {
     const httpStatusCode = error.status;
     if (httpStatusCode === 404 || httpStatusCode === 500) console.log(error.message);
     else console.log(`Error occurred while editing task with id: ${taskPayload.id}`);
+    return false;
   }
 };
 
