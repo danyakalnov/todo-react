@@ -18,6 +18,10 @@ interface TodoListItemProps {
   editHandler: (payload: TaskEditPayload) => void;
 }
 
+type TaskTextProps = {
+  isDone: boolean;
+};
+
 const useStyles = makeStyles({
   todo: {
     display: 'flex',
@@ -68,6 +72,9 @@ const useStyles = makeStyles({
     justifyContent: 'end',
     alignItems: 'center',
   },
+  taskText: (props: TaskTextProps) => ({
+    textDecoration: props.isDone ? 'line-through' : 'none',
+  }),
 });
 
 export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
@@ -75,7 +82,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
     { taskText, isDone, id, deleteHandler, toggleHandler, editHandler },
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
-    const styles = useStyles();
+    const styles = useStyles({ isDone });
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [newTaskText, setNewTaskText] = useState<string>(taskText);
@@ -111,7 +118,13 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
 
     return (
       <div className={styles.todo} ref={ref}>
-        {isEditing ? EditTaskTextField : <Typography variant="h6">{taskText}</Typography>}
+        {isEditing ? (
+          EditTaskTextField
+        ) : (
+          <Typography variant="h6" className={styles.taskText}>
+            {taskText}
+          </Typography>
+        )}
         <div className={styles.iconsBlock}>
           <Checkbox
             onClick={() => toggleHandler(id)}
