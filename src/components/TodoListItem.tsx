@@ -95,6 +95,7 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
       <TextField
         value={newTaskText}
         type="text"
+        multiline
         onChange={newTaskTextHandler}
         InputProps={{
           endAdornment: (

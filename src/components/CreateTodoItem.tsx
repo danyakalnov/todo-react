@@ -48,6 +48,7 @@ export const CreateTodoItem: React.FC<CreateTodoListProps> = ({ setTasks }) => {
     <div className={styles.createTodo}>
       <TextField
         className={styles.newTaskTextField}
+        multiline
         label="Новое задание"
         type="text"
         id="newTaskTextInput"
