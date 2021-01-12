@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   deleteIcon: {
     width: '29px',
     height: '29px',
-    color: 'rgba(220, 70, 47, 0.7)',
+    color: 'rgba(225, 70, 47, 0.85)',
     marginLeft: '4px',
     cursor: 'pointer',
   },
