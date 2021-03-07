@@ -9,6 +9,10 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '*'],
+    alias: {
+      'react': 'preact/compat',
+      'react-dom': 'preact/compat',
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
