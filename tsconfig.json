@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "jsx": "react",
+    "jsx": "preserve",
+    "jsxImportSource": "preact",
     "allowJs": true,
     "noEmit": true,
     "lib": [
