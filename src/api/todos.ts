@@ -1,6 +1,6 @@
 import { Task, TaskCreatePayload, TaskEditPayload } from '../types/todos';
 
-const TODOS_URL = 'http://localhost:3000/api/tasks';
+export const TODOS_URL = 'http://localhost:3000/api/tasks';
 
 export const getTasks: () => Promise<Array<Task> | undefined> = async (): Promise<
   Array<Task> | undefined
