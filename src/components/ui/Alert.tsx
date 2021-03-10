@@ -3,12 +3,15 @@ import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   text: {
-    fontSize: '1.3rem',
-    color: 'white',
+    fontSize: '1.2rem',
     fontWeight: 'bold',
+    color: 'white',
+    fontFamily: 'Roboto',
   },
   container: {
     display: 'flex',
+    padding: '2rem',
+    borderRadius: '15px',
     justifyContent: 'center',
     alignContent: 'center',
     backgroundColor: '#e32712',
