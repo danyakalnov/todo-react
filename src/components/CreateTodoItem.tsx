@@ -69,7 +69,7 @@ export const CreateTodoItem: React.FC<CreateTodoListProps> = ({ setTasks }) => {
         autoHideDuration={5000}
         onClose={() => setShowErrorSnackbar(false)}
       >
-        <Alert text={`При создании задачи ${newTaskText} произошла ошибка`} />
+        <Alert text={`При создании задачи "${newTaskText}" произошла ошибка`} />
       </Snackbar>
     </div>
   );
