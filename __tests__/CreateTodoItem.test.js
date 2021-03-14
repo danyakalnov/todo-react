@@ -119,6 +119,10 @@ describe('CreateTodoItem', () => {
     await waitFor(() => {
       expect(inputField.value).toBe(newTodoText);
     });
+
+    await waitFor(() => {
+      expect(screen.findByText(/ошибка/i)).not.toBeNull();
+    });
   });
 
   /* Integration test with TodoList component */
