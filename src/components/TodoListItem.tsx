@@ -137,8 +137,18 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
             }
             icon={<UncheckedCircle className={styles.todoToggleIcon} />}
           />
-          <DeleteForever className={styles.deleteIcon} onClick={() => deleteHandler(id)} />
-          <Edit className={styles.editIcon} onClick={() => setIsEditing(true)} />
+          <DeleteForever
+            role="button"
+            aria-label="delete-todo"
+            className={styles.deleteIcon}
+            onClick={() => deleteHandler(id)}
+          />
+          <Edit
+            role="button"
+            aria-label="edit-todo"
+            className={styles.editIcon}
+            onClick={() => setIsEditing(true)}
+          />
         </div>
       </div>
     );
