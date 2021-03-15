@@ -6,6 +6,7 @@ import DeleteForever from '@material-ui/icons/DeleteForever';
 import Clear from '@material-ui/icons/Clear';
 import Edit from '@material-ui/icons/Edit';
 import Done from '@material-ui/icons/Done';
+import { IconButton } from '@material-ui/core';
 import clsx from 'clsx';
 import { TaskEditPayload } from '../types/todos';
 
@@ -49,13 +50,19 @@ const useStyles = makeStyles({
     width: '29px',
     height: '29px',
     color: 'rgba(225, 70, 47, 0.85)',
-    marginLeft: '4px',
+  },
+  deleteIconButton: {
+    padding: '8px',
+    marginLeft: '2px',
     cursor: 'pointer',
   },
   editIcon: {
     color: 'rgba(21, 21, 21, 0.38)',
+  },
+  editIconButton: {
+    padding: '10px',
+    marginLeft: '2px',
     cursor: 'pointer',
-    marginLeft: '16px',
   },
   newTaskTextField: {
     width: '100%',
@@ -137,18 +144,20 @@ export const TodoListItem: React.FC<TodoListItemProps> = forwardRef(
             }
             icon={<UncheckedCircle className={styles.todoToggleIcon} />}
           />
-          <DeleteForever
-            role="button"
+          <IconButton
             aria-label="delete-todo"
-            className={styles.deleteIcon}
             onClick={() => deleteHandler(id)}
-          />
-          <Edit
-            role="button"
+            className={styles.deleteIconButton}
+          >
+            <DeleteForever className={styles.deleteIcon} />
+          </IconButton>
+          <IconButton
             aria-label="edit-todo"
-            className={styles.editIcon}
             onClick={() => setIsEditing(true)}
-          />
+            className={styles.editIconButton}
+          >
+            <Edit className={styles.editIcon} />
+          </IconButton>
         </div>
       </div>
     );
