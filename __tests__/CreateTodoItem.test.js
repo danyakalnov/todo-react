@@ -144,6 +144,11 @@ describe('CreateTodoItem', () => {
         },
       ]);
 
+    // There shouldn't be new to-do before adding
+    await waitFor(() => {
+      expect(screen.queryByText(newTodoText)).toBeNull();
+    });
+
     // Find input field and enter new task's text
     const inputField = screen.getByLabelText(/Новое задание/i);
 
