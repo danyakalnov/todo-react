@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '30%',
+    width: '35%',
     minHeight: '32px',
     height: 'auto',
     padding: '12px',
